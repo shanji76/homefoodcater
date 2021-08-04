@@ -3,8 +3,9 @@ info:
   title: User Regstration
   description: Register a user
   version: 1.0.0
-host: food.homecater.com
+host: localhost:8080
 schemes:
+  - http
   - https
 paths:
   /user/register:
