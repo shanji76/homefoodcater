@@ -1,16 +1,20 @@
 package com.jh.fcs.userregistration.model;
 
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "ACCOUNT")
 public class Account {
     @Id
+    @GeneratedValue
+    @Type(type = "uuid-char")
     @Column(name = "ID")
-    private String id;
+    private UUID id;
 
     @Column(name = "FIRST_NAME")
     private String firstName;
@@ -42,11 +46,11 @@ public class Account {
     @Column(name = "ZIP")
     private String zip;
 
-    public String getId() {
+    public UUID getId() {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

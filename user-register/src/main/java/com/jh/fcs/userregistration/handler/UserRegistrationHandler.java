@@ -1,9 +1,11 @@
 package com.jh.fcs.userregistration.handler;
 
 import com.jh.fcs.userregistration.api.UserApi;
+import com.jh.fcs.userregistration.helper.UserRegistrationHelper;
 import com.jh.fcs.userregistration.model.Status;
 import com.jh.fcs.userregistration.model.User;
 import io.swagger.annotations.ApiParam;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +18,11 @@ import javax.validation.Valid;
 @RestController
 public class UserRegistrationHandler implements UserApi {
 
+    @Autowired
+    private UserRegistrationValidator validator;
+    @Autowired
+    private UserRegistrationHelper helper;
+
     @RequestMapping(value = "/user/register",
             produces = { "application/json" },
             consumes = { "application/json" },
@@ -23,7 +30,9 @@ public class UserRegistrationHandler implements UserApi {
     public ResponseEntity<Status> registerUser
             (@ApiParam(value = "" ,required=true )
              @Valid @RequestBody User user) {
-
+        if(validator.isValid(user)) {
+            helper.registerUser(user);
+        }
         return ResponseEntity.ok(buildStatus());
     }
 
